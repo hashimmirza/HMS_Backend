@@ -1,0 +1,21 @@
+{
+
+  "app" : {
+    "baseURL" : "http://dev.yourpantryapp.com/"
+  },
+  "database": {
+    "name" : "yourpan1_pantry_app",
+    "username": "yourpan1_pantery",
+    "password": ":2SY:nPkgTTiETr"
+  },
+  "mysql": {
+    "host": "localhost"
+  },
+  "mail" : {
+    "user" : "hashim.tbox@gmail.com",
+    "password" : "Hash@tbox01",
+    "host" : "gmail",
+    "port" : 587
+  }
+
+}

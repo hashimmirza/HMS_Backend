@@ -1,0 +1,21 @@
+{
+  "app" : {
+    "baseURL" : "http://localhost:8080/"
+  },
+  "database": {
+    "name" : "yourpan1_pantry_app",
+    "username": "root",
+    "password": null
+  },
+  "mysql": {
+    "host": "localhost"
+  },
+  "mail" : {
+    "user" : "hashim.tbox@gmail.com",
+    "password" : "Hash@tbox01",
+    "host" : "gmail",
+    "port" : 587
+   }
+
+
+}
