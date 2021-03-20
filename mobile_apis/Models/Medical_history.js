@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
             autoIncrement : true,
             allowNull: false,
         },
-        diesease: {
+        disease: {
             type: Sequelize.STRING,
         },
         condition: {

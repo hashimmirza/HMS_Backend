@@ -28,24 +28,41 @@ hospitalRoutes.post('/login'
 // /** *************************************************************************************************** **/
 
 
-// /** ********************Get Patient Details By CINC  *********************** **/
+// /** ******************** Get Patient Details By CINC  *********************** **/
 
 hospitalRoutes.get('/patient/by_cinc'
     //authenticate token from header
     ,requiredParameters(['cnic'])
     ,h_patient_controller.login);
 
+// /** ******************** Add Patient Details  *********************** **/
+
+hospitalRoutes.post('/patient/'
+    //authenticate token from header
+    ,requiredParameters(['name','age','gender','condition','disease_description','phone_number','cnic', 'department_id','doctor_id'])
+    ,h_patient_controller.login);
 
 // /** *************************************************************************************************** **/
 // /** **************************************** Hospital Department Routes  ******************************************* **/
 // /** *************************************************************************************************** **/
 
 
-// /** ******************** Get Department by Hospital Id   *********************** **/
+// /** ******************** Get Building by Hospital Id   *********************** **/
 
-hospitalRoutes.get('/department/:hospital_id'
+hospitalRoutes.get('/building/:hospital_id'
     //authenticate token from header
-    ,requiredParameters(['cnic'])
+    ,h_patient_controller.login);
+
+
+// /** *************************************************************************************************** **/
+// /** **************************************** Hospital Doctors Routes  ******************************************* **/
+// /** *************************************************************************************************** **/
+
+
+// /** ******************** Get Doctors by Hospital Id   *********************** **/
+
+hospitalRoutes.get('/doctor/:hospital_id'
+    //authenticate token from header
     ,h_patient_controller.login);
 
 
