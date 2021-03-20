@@ -21,7 +21,15 @@ module.exports = (sequelize, DataTypes) => {
             type: Sequelize.STRING,
             defaultValue : null
         },
-        verification_document_link: {
+        username: {
+            type: Sequelize.STRING,
+            defaultValue : null
+        },
+        password: {
+            type: Sequelize.STRING,
+            defaultValue : null
+        },
+        access_token: {
             type: Sequelize.STRING,
             defaultValue : null
         },
