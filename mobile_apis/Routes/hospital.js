@@ -7,21 +7,33 @@
 const express = require('express');
 const hospitalRoutes = express.Router();
 const hospital_controller = require('../Controllers/hospital_controller');
+const h_patient_controller = require('../Controllers/h_patient_controller');
 const requiredParameters = require('../Middlewares/requiredParameters');
 
-// /** **************************************** Login  ******************************************* **/
+
+// /** *************************************************************************************************** **/
+// /** ******************************** Authentication Routes  ******************************************* **/
+// /** *************************************************************************************************** **/
+
+
+// /** ******************** Login  *********************** **/
 
 hospitalRoutes.post('/login'
     ,requiredParameters(['username', 'password'])
     ,hospital_controller.login);
 
 
-// /** **************************************** Get Patient Details By CINC  ******************************************* **/
+// /** *************************************************************************************************** **/
+// /** **************************************** Patient Routes  ******************************************* **/
+// /** *************************************************************************************************** **/
+
+
+// /** ********************Get Patient Details By CINC  *********************** **/
 
 hospitalRoutes.get('/patient/by_cinc'
     //authenticate token from header
     ,requiredParameters(['cnic'])
-    ,hospital_controller.login);
+    ,h_patient_controller.login);
 
 
 
