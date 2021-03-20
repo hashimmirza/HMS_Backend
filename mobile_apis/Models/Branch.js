@@ -2,7 +2,7 @@ const Sequelize = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
 
-    let User = sequelize.define('User',{
+    let Branch = sequelize.define('Branch',{
         // attributes
         id: {
             primaryKey : true,
@@ -13,40 +13,19 @@ module.exports = (sequelize, DataTypes) => {
         name: {
             type: Sequelize.STRING,
         },
-        gender: {
-            type: Sequelize.ENUM,
-            values: ['male', 'female','other','not_specified'],
-            defaultValue : "not_specified"
-        },
-        age: {
-            type: Sequelize.INTEGER,
-            defaultValue : null
-        },
-        cnic: {
+        description: {
             type: Sequelize.STRING,
             defaultValue : null
-        },
-        phone_number: {
-            type: Sequelize.STRING,
-            defaultValue : null
-        },
-        user_type: {
-            type: Sequelize.STRING,
-            allowNull: false,
         }
     },{
         timestamps : true,
         associate : models => {
-            User.hasMany(models.Patient, {
-                foreignKey: { name: 'user_id', allowNull: false }
+            Branch.belongsTo (models.Hospital, {
+                foreignKey: { name: 'hospital_id', allowNull: false },
             });
-            User.hasMany(models.Technician, {
-                foreignKey: { name: 'user_id', allowNull: false }
+            Branch.hasMany(models.Building, {
+                foreignKey: { name: 'branch_id', allowNull: false }
             });
-            User.hasMany(models.Medical_practitioner, {
-                foreignKey: { name: 'user_id', allowNull: false }
-            });
-
             // User.hasMany(models.Followers, {
             //     as: 'Follower',
             //     foreignKey: {
@@ -114,5 +93,5 @@ module.exports = (sequelize, DataTypes) => {
             // });
         }
     });
-    return User ;
+    return Branch ;
 };
