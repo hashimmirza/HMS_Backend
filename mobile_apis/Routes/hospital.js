@@ -36,6 +36,19 @@ hospitalRoutes.get('/patient/by_cinc'
     ,h_patient_controller.login);
 
 
+// /** *************************************************************************************************** **/
+// /** **************************************** Hospital Department Routes  ******************************************* **/
+// /** *************************************************************************************************** **/
+
+
+// /** ******************** Get Department by Hospital Id   *********************** **/
+
+hospitalRoutes.get('/department/:hospital_id'
+    //authenticate token from header
+    ,requiredParameters(['cnic'])
+    ,h_patient_controller.login);
+
+
 
 
 
