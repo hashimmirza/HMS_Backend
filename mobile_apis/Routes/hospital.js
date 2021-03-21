@@ -9,6 +9,7 @@ const hospitalRoutes = express.Router();
 const hospital_controller = require('../Controllers/hospital_controller');
 const h_patient_controller = require('../Controllers/h_patient_controller');
 const h_user_controller = require('../Controllers/h_user_controller');
+const h_branch_controller = require('../Controllers/h_branch_controller');
 
 const helper_controller = require('../Controllers/helper_controller');
 
@@ -52,6 +53,7 @@ hospitalRoutes.get('/:hospital_id/user/by_cnic'
 
 
 
+
 // /** *************************************************************************************************** **/
 // /** **************************************** Patient Routes  ******************************************* **/
 // /** *************************************************************************************************** **/
@@ -87,9 +89,6 @@ hospitalRoutes.get('/building/:hospital_id'
 
 
 
-
-
-
 // /** *************************************************************************************************** **/
 // /** **************************************** Hospital Doctors Routes  ******************************************* **/
 // /** *************************************************************************************************** **/
@@ -101,6 +100,19 @@ hospitalRoutes.get('/doctor/:hospital_id'
     ,h_patient_controller.login);
 
 
+
+
+
+// /** *************************************************************************************************** **/
+// /** **************************************** Branches Routes  ******************************************* **/
+// /** *************************************************************************************************** **/
+
+
+// /** ******************** Get Branch By Hospital_id  *********************** **/
+
+hospitalRoutes.get('/:hospital_id/branch'
+    ,helper_controller.verify_hospital_token
+    ,h_branch_controller.getBranches);
 
 
 
