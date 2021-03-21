@@ -33,6 +33,10 @@ module.exports = (sequelize, DataTypes) => {
             type: Sequelize.STRING,
             defaultValue : null
         },
+        token_expire_time: {
+            type: Sequelize.STRING,
+            defaultValue : null
+        },
         owner: {
             type: Sequelize.STRING,
         },
@@ -46,6 +50,7 @@ module.exports = (sequelize, DataTypes) => {
             defaultValue : "false"
         }
     },{
+
         timestamps : true,
         associate : models => {
             Hospital.hasMany(models.Branch, {
@@ -61,6 +66,9 @@ module.exports = (sequelize, DataTypes) => {
                 foreignKey: { name: 'hospital_id', allowNull: false }
             });
             Hospital.hasMany(models.Assistant_doctor, {
+                foreignKey: { name: 'hospital_id', allowNull: false }
+            });
+            Hospital.hasMany(models.Doctor, {
                 foreignKey: { name: 'hospital_id', allowNull: false }
             });
         }

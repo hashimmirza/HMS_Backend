@@ -1,20 +1,48 @@
 const db = require('../../config/sequelize').db;
 const responseModule = require('../../config/response');
 
-let login = async (req, res, next) => {
+let addOutDoorPatient = async (req, res, next) => {
     let {
-        email,
-        password
+        name,
+        age,
+        gender,
+        condition,
+        disease_description,
+        phone_number,
+        cnic,
+        doctor_id
     } = req.body;
+    let {hospital_id} = req.params ;
+
     try {
         let user = await db.User.create({
-            email: email,
-            password: password,
+            name: name,
+            gender: gender,
+            age : age ,
+            cnic : cnic,
+            phone_number : phone_number,
+            user_type : "patient"
         });
+
+        let patient = await db.Patient.create({
+            name: name,
+            user_id: user.id,
+            description : disease_description
+        });
+        let medicalHistory = await db.Medical_history.create({
+            disease: disease_description,
+            condition : condition,
+            type : "outdoor",
+            hospital_id : hospital_id ,
+            doctor_id : doctor_id
+        });
+
         return responseModule.successResponse(res, {
             success: true,
-            message: 'You are successfully registered.',
-            user: user
+            message: 'Patient successfully registered.',
+            patient : patient,
+            medicalHistory : medicalHistory,
+            user : user
         });
     } catch (err) {
         return responseModule.failResponse(res, {
@@ -25,5 +53,5 @@ let login = async (req, res, next) => {
 };
 
 module.exports = {
-    login
+    addOutDoorPatient
 };
