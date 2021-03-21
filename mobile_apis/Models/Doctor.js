@@ -28,6 +28,9 @@ module.exports = (sequelize, DataTypes) => {
             Doctor.belongsTo (models.Medical_practitioner, {
                 foreignKey: { name: 'medical_practitioner_id', allowNull: false },
             });
+            Doctor.belongsTo (models.Hospital, {
+                foreignKey: { name: 'hospital_id', allowNull: false },
+            });
             Doctor.hasMany(models.Medical_history, {
                 foreignKey: { name: 'doctor_id', allowNull: false }
             });
