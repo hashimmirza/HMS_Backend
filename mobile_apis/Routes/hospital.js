@@ -8,6 +8,10 @@ const express = require('express');
 const hospitalRoutes = express.Router();
 const hospital_controller = require('../Controllers/hospital_controller');
 const h_patient_controller = require('../Controllers/h_patient_controller');
+const h_user_controller = require('../Controllers/h_user_controller');
+
+const helper_controller = require('../Controllers/helper_controller');
+
 const requiredParameters = require('../Middlewares/requiredParameters');
 
 
@@ -17,10 +21,35 @@ const requiredParameters = require('../Middlewares/requiredParameters');
 
 
 // /** ******************** Login  *********************** **/
-
 hospitalRoutes.post('/login'
     ,requiredParameters(['username', 'password'])
     ,hospital_controller.login);
+
+
+
+
+
+
+
+
+
+
+
+// /** *************************************************************************************************** **/
+// /** **************************************** User Routes  ******************************************* **/
+// /** *************************************************************************************************** **/
+
+
+// /** ******************** Get User Details By CINC  *********************** **/
+
+hospitalRoutes.get('/:hospital_id/user/by_cnic'
+    ,helper_controller.verify_hospital_token
+    ,requiredParameters(['cnic'])
+    ,h_user_controller.getUserbyCNIC);
+
+
+
+
 
 
 // /** *************************************************************************************************** **/
@@ -28,19 +57,20 @@ hospitalRoutes.post('/login'
 // /** *************************************************************************************************** **/
 
 
-// /** ******************** Get Patient Details By CINC  *********************** **/
-
-hospitalRoutes.get('/patient/by_cinc'
-    //authenticate token from header
-    ,requiredParameters(['cnic'])
-    ,h_patient_controller.login);
 
 // /** ******************** Add Patient Details  *********************** **/
-
 hospitalRoutes.post('/patient/'
     //authenticate token from header
     ,requiredParameters(['name','age','gender','condition','disease_description','phone_number','cnic', 'department_id','doctor_id'])
     ,h_patient_controller.login);
+
+
+
+
+
+
+
+
 
 // /** *************************************************************************************************** **/
 // /** **************************************** Hospital Department Routes  ******************************************* **/
@@ -48,10 +78,16 @@ hospitalRoutes.post('/patient/'
 
 
 // /** ******************** Get Building by Hospital Id   *********************** **/
-
 hospitalRoutes.get('/building/:hospital_id'
     //authenticate token from header
     ,h_patient_controller.login);
+
+
+
+
+
+
+
 
 
 // /** *************************************************************************************************** **/
@@ -60,10 +96,14 @@ hospitalRoutes.get('/building/:hospital_id'
 
 
 // /** ******************** Get Doctors by Hospital Id   *********************** **/
-
 hospitalRoutes.get('/doctor/:hospital_id'
     //authenticate token from header
     ,h_patient_controller.login);
+
+
+
+
+
 
 
 

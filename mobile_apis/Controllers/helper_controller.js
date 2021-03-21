@@ -1,32 +1,23 @@
 const db = require('../../config/sequelize').db;
-
 const responseModule = require('../../config/response');
-
-let verify_api_key = async (req, res, next) => {
+let verify_hospital_token = async (req, res, next) => {
     try {
-        if (req.headers.api_key != undefined) {
-            let foundData = await db.User.findOne({
-                where: {
-                    api_key: req.headers.api_key
-                }
-            });
-            if (foundData != null) {
-                req.user = foundData;
-                return next();
-            } else {
-                if(req.headers.api_key === process.env.MASTER_KEY){
+        let {access_token} = req.headers ;
+        let {hospital_id} = req.params ;
+        let hospital = await db.Hospital.findOne({where : {id: hospital_id,}});
+        if(hospital !== null){
+            if (hospital.access_token === access_token) {
                     return next();
-                }else{
-                    return responseModule.failResponse(res, {
-                        success: false,
-                        message: 'Invalid Api key ! '
-                    });
-                }
+            } else {
+                return responseModule.failResponse(res, {
+                    success: false,
+                    message: "Invalid access token !"
+                });
             }
-        } else {
+        }else{
             return responseModule.failResponse(res, {
                 success: false,
-                message: "Please provide API Key !"
+                message: "Invalid Hospital Id !"
             });
         }
     } catch (err) {
@@ -37,24 +28,7 @@ let verify_api_key = async (req, res, next) => {
         });
     }
 };
-let restrict_master_key = async (req, res , next) => {
-    try {
-                if(req.headers.api_key === process.env.MASTER_KEY){
-                    return responseModule.failResponse(res, {
-                        success: false,
-                        message: 'Unable to get information without login !'
-                    });
-                }else{
-                    return next();
-                }
-    } catch (err) {
-        return responseModule.failResponse(res, {
-            success: false,
-            error: err
-        });
-    }
-};
+
 module.exports = {
-    verify_api_key,
-    restrict_master_key
+    verify_hospital_token,
 };
