@@ -32,9 +32,6 @@ module.exports = (sequelize, DataTypes) => {
             Medical_practitioner.hasMany(models.Doctor, {
                 foreignKey: { name: 'medical_practitioner_id', allowNull: false }
             });
-            Medical_practitioner.hasMany(models.Medical_history, {
-                foreignKey: { name: 'medical_practitioner_id', allowNull: false }
-            });
             Medical_practitioner.hasMany(models.Nurse, {
                 foreignKey: { name: 'medical_practitioner_id', allowNull: false }
             });

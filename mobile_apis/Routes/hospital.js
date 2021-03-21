@@ -7,7 +7,6 @@
 const express = require('express');
 const hospitalRoutes = express.Router();
 const hospital_controller = require('../Controllers/hospital_controller');
-const h_patient_controller = require('../Controllers/h_patient_controller');
 const h_user_controller = require('../Controllers/h_user_controller');
 const h_branch_controller = require('../Controllers/h_branch_controller');
 const h_patient_controller = require('../Controllers/h_patient_controller');
@@ -66,23 +65,6 @@ hospitalRoutes.post('/:hospital_id/patient/outdoor'
     ,helper_controller.verify_hospital_token
     ,requiredParameters(['name','age','gender','condition','disease_description','phone_number','cnic','doctor_id'])
     ,h_patient_controller.addOutDoorPatient);
-
-
-
-
-// /** *************************************************************************************************** **/
-// /** **************************************** Hospital Building Routes  ******************************************* **/
-// /** *************************************************************************************************** **/
-
-
-// /** ******************** Get Building by Hospital Id   *********************** **/
-hospitalRoutes.get('/building/:hospital_id'
-    ,helper_controller.verify_hospital_token
-    ,h_patient_controller.login);
-
-
-
-
 
 
 

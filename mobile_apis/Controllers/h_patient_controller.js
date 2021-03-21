@@ -13,17 +13,23 @@ let addOutDoorPatient = async (req, res, next) => {
         doctor_id
     } = req.body;
     let {hospital_id} = req.params ;
-
     try {
-        let user = await db.User.create({
-            name: name,
-            gender: gender,
-            age : age ,
-            cnic : cnic,
-            phone_number : phone_number,
-            user_type : "patient"
-        });
 
+        let alreadyExistUser = await db.User.findOne({where : {cnic: cnic,}});
+        let user
+        if(alreadyExistUser === null){
+           user = await db.User.create({
+                name: name,
+                gender: gender,
+                age : age ,
+                cnic : cnic,
+                phone_number : phone_number,
+                user_type : "patient"
+            });
+        }else{
+            user = alreadyExistUser ;
+        }
+        
         let patient = await db.Patient.create({
             name: name,
             user_id: user.id,
@@ -33,6 +39,7 @@ let addOutDoorPatient = async (req, res, next) => {
             disease: disease_description,
             condition : condition,
             type : "outdoor",
+            patient_id : patient.id,
             hospital_id : hospital_id ,
             doctor_id : doctor_id
         });
