@@ -29,7 +29,7 @@ let addOutDoorPatient = async (req, res, next) => {
         }else{
             user = alreadyExistUser ;
         }
-        
+
         let patient = await db.Patient.create({
             name: name,
             user_id: user.id,

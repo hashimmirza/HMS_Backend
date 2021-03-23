@@ -45,6 +45,7 @@ hospitalRoutes.post('/login'
 
 hospitalRoutes.get('/:hospital_id/user/by_cnic'
     ,helper_controller.verify_hospital_token
+    ,helper_controller.validate_cnic
     ,requiredParameters(['cnic'])
     ,h_user_controller.getUserbyCNIC);
 
@@ -63,6 +64,7 @@ hospitalRoutes.get('/:hospital_id/user/by_cnic'
 // /** ******************** Add Patient Details  *********************** **/
 hospitalRoutes.post('/:hospital_id/patient/outdoor'
     ,helper_controller.verify_hospital_token
+    ,helper_controller.validate_cnic
     ,requiredParameters(['name','age','gender','condition','disease_description','phone_number','cnic','doctor_id'])
     ,h_patient_controller.addOutDoorPatient);
 
