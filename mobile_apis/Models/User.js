@@ -46,6 +46,9 @@ module.exports = (sequelize, DataTypes) => {
             User.hasMany(models.Medical_practitioner, {
                 foreignKey: { name: 'user_id', allowNull: false }
             });
+            User.hasMany(models.Emergency_logs, {
+                foreignKey: { name: 'user_id', allowNull: false }
+            });
 
             // User.hasMany(models.Followers, {
             //     as: 'Follower',

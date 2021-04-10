@@ -13,6 +13,11 @@ module.exports = (sequelize, DataTypes) => {
         name: {
             type: Sequelize.STRING,
         },
+        status  : {
+            type: Sequelize.ENUM,
+            values: ['free', 'engaged'],
+            defaultValue : "free"
+        },
         description: {
             type: Sequelize.STRING,
             defaultValue : null

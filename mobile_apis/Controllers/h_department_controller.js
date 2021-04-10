@@ -1,20 +1,13 @@
 const db = require('../../config/sequelize').db;
 const responseModule = require('../../config/response');
 
-let login = async (req, res, next) => {
-    let {
-        email,
-        password
-    } = req.body;
+let getDepartments = async (req, res, next) => {
+    let {hospital_id} = req.params;
     try {
-        let user = await db.User.create({
-            email: email,
-            password: password,
-        });
+        let departments = await db.Department.findAll({where : {hospital_id: hospital_id}});
         return responseModule.successResponse(res, {
             success: true,
-            message: 'You are successfully registered.',
-            user: user
+            departments: departments
         });
     } catch (err) {
         return responseModule.failResponse(res, {
@@ -25,5 +18,5 @@ let login = async (req, res, next) => {
 };
 
 module.exports = {
-    login
+    getDepartments
 };

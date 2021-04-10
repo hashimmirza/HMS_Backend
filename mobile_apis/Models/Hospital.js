@@ -71,6 +71,20 @@ module.exports = (sequelize, DataTypes) => {
             Hospital.hasMany(models.Doctor, {
                 foreignKey: { name: 'hospital_id', allowNull: false }
             });
+            Hospital.hasMany(models.Department, {
+                foreignKey: { name: 'hospital_id', allowNull: false }
+            });
+            Hospital.hasMany(models.Hospital_doctor_department, {
+                foreignKey: { name: 'hospital_id', allowNull: false }
+            });
+            Hospital.hasMany(models.Hospital_nurse_department, {
+                foreignKey: { name: 'hospital_id', allowNull: false }
+            });
+            Hospital.hasMany(models.Emergency_logs, {
+                foreignKey: { name: 'hospital_id', allowNull: false }
+            });
+
+
         }
     });
     return Hospital ;

@@ -31,6 +31,16 @@ module.exports = (sequelize, DataTypes) => {
             Nurse.belongsTo (models.Hospital, {
                 foreignKey: { name: 'hospital_id', allowNull: false },
             });
+            Nurse.hasMany(models.Hospital_nurse_shift, {
+                foreignKey: { name: 'nurse_id', allowNull: false }
+            });
+            Nurse.hasMany(models.Hospital_nurse_department, {
+                foreignKey: { name: 'nurse_id', allowNull: false }
+            });
+            Nurse.hasMany(models.Emergency_logs, {
+                foreignKey: { name: 'nurse_id', allowNull: false }
+            });
+
         }
     });
     return Nurse ;

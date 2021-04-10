@@ -17,6 +17,10 @@ module.exports = (sequelize, DataTypes) => {
             type: Sequelize.STRING,
             defaultValue : null
         },
+        specialization: {
+            type: Sequelize.STRING,
+            defaultValue : null
+        },
         is_verified: {
             type: Sequelize.ENUM,
             values: ['false', 'true'],
@@ -31,9 +35,23 @@ module.exports = (sequelize, DataTypes) => {
             Doctor.belongsTo (models.Hospital, {
                 foreignKey: { name: 'hospital_id', allowNull: false },
             });
+            Doctor.belongsTo (models.Department, {
+                foreignKey: { name: 'department_id', allowNull: false },
+            });
             Doctor.hasMany(models.Medical_history, {
                 foreignKey: { name: 'doctor_id', allowNull: false }
             });
+            Doctor.hasMany(models.Hospital_doctor_department, {
+                foreignKey: { name: 'doctor_id', allowNull: false }
+            });
+            Doctor.hasMany(models.Hospital_doctor_shift, {
+                foreignKey: { name: 'doctor_id', allowNull: false }
+            });
+            Doctor.hasMany(models.Emergency_logs, {
+                foreignKey: { name: 'doctor_id', allowNull: false }
+            });
+
+
 
         }
     });
