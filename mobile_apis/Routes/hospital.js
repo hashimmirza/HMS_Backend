@@ -70,9 +70,10 @@ hospitalRoutes.post('/:hospital_id/patient/outdoor'
 // /** ******************** Add Emergency Patient Details  *********************** **/
 hospitalRoutes.post('/:hospital_id/patient/emergency'
     ,helper_controller.verify_hospital_token
-    ,helper_controller.validate_cnic
     ,requiredParameters(['representor_name','patient_name','age','gender','condition','phone_number','cnic','doctor_id', 'nurse_id'])
-    ,h_emergency_controller.addEmergencyLog);
+    ,helper_controller.validate_cnic
+    ,h_emergency_controller.addEmergencyLog
+);
 
 
 

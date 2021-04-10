@@ -20,8 +20,8 @@ module.exports = (sequelize, DataTypes) => {
     },{
         timestamps : true,
         associate : models => {
-            Building.belongsTo (models.Branch, {
-                foreignKey: { name: 'branch_id', allowNull: false },
+            Building.belongsTo (models.Department, {
+                foreignKey: { name: 'department_id', allowNull: false },
             });
             Building.hasMany(models.Floor, {
                 foreignKey: { name: 'building_id', allowNull: false }
