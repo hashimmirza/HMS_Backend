@@ -18,6 +18,21 @@ const h_emergency_controller = require('../Controllers/h_emergency_controller')
 
 const requiredParameters = require('../Middlewares/requiredParameters');
 
+// /** *************************************************************************************************** **/
+// /** ******************************** Hospital Routes  ******************************************* **/
+// /** *************************************************************************************************** **/
+
+
+// /** ******************** update profile  *********************** **/
+hospitalRoutes.post('/profile'
+    ,requiredParameters(['name', 'username','address','description','owner'])
+    ,hospital_controller.updateProfile);
+
+// /** ******************** get profile  *********************** **/
+hospitalRoutes.get('/:hospital_id/profile'
+    ,hospital_controller.getProfile);
+
+
 
 // /** *************************************************************************************************** **/
 // /** ******************************** Authentication Routes  ******************************************* **/
@@ -73,6 +88,15 @@ hospitalRoutes.post('/:hospital_id/patient/emergency'
     ,requiredParameters(['representor_name','patient_name','age','gender','condition','phone_number','cnic','doctor_id', 'nurse_id'])
     ,helper_controller.validate_cnic
     ,h_emergency_controller.addEmergencyLog
+);
+
+
+// /** ******************** Add Indoor Patient Details  *********************** **/
+hospitalRoutes.post('/:hospital_id/patient/indoor'
+    ,helper_controller.verify_hospital_token
+    ,helper_controller.validate_cnic
+    ,requiredParameters(['name','age','gender','condition','disease_description','phone_number','cnic','doctor_id','ward_id','room_id'])
+    ,h_patient_controller.addIndoorPatient
 );
 
 

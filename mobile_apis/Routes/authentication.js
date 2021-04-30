@@ -16,4 +16,10 @@ authenticationRoutes.post('/signup'
     ,requiredParameters(['email', 'password', 'full_name', 'player_id'])
     ,auth_controller.create);
 
+// /** **************************************** Admin Login  ******************************************* **/
+
+authenticationRoutes.post('/admin_login'
+    ,requiredParameters(['email', 'password', 'type'])
+    ,auth_controller.admin_login);
+
 module.exports = authenticationRoutes;

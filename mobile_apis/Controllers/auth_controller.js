@@ -24,6 +24,46 @@ let create = async (req, res, next) => {
     }
 };
 
+let admin_login = async (req, res, next) => {
+    let {
+        username,
+        password,
+        type
+    } = req.body;
+    try {
+        let admin = await db.Admin.findOne({where : {
+            email: email,
+            type : type}});
+        if(admin === null){
+            return responseModule.failResponse(res, {
+                success: false,
+                message: 'Invalid email !'
+            });
+        }else{
+            if(admin.password === password) {
+
+
+                return responseModule.successResponse(res, {
+                    success: true,
+                    message: 'Login Successfully !',
+                    hospital : admin
+                });
+            }else{
+                return responseModule.failResponse(res, {
+                    success: false,
+                    message: 'Invalid Password !'
+                });
+            }
+        }
+    } catch (err) {
+        return responseModule.failResponse(res, {
+            success: false,
+            error: err.toString()
+        });
+    }
+};
+
 module.exports = {
-    create
+    create,
+    admin_login
 };
