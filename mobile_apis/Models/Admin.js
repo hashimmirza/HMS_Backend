@@ -28,6 +28,9 @@ module.exports = (sequelize, DataTypes) => {
         role: {
             type: Sequelize.STRING,
             allowNull: false,
+        },access_token: {
+            type: Sequelize.STRING,
+            defaultValue : null
         }
     },{
         timestamps : true,

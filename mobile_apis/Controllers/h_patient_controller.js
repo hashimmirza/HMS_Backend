@@ -127,8 +127,50 @@ let addIndoorPatient = async (req, res, next) => {
         });
     }
 };
+let getAllPatients = async (req, res, next) => {
+    let {hospital_id} = req.params ;
+    try {
+
+        let inOutPatients = await db.Medical_history.findAll({where : {hospital_id: hospital_id},
+            include: [
+                {
+                    model: db.Patient,
+                },
+                {
+                    model: db.Doctor,
+                },
+            ],});
+        let emergencyPatients = await db.Emergency_logs.findAll({
+            where : {
+                hospital_id: hospital_id
+            },
+            include: [
+                {
+                    model: db.User,
+                },
+                {
+                    model: db.Doctor,
+                },
+                {
+                    model: db.Nurse,
+                },
+            ],});
+        return responseModule.successResponse(res, {
+            success: true,
+            inOutPatients : inOutPatients,
+            emergencyPatients : emergencyPatients
+
+        });
+    } catch (err) {
+        return responseModule.failResponse(res, {
+            success: false,
+            error: err
+        });
+    }
+};
 
 module.exports = {
     addOutDoorPatient,
-    addIndoorPatient
+    addIndoorPatient,
+    getAllPatients
 };

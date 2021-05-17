@@ -61,8 +61,9 @@ let updateProfile = async (req, res, next) => {
         owner,
         username,
     } = req.body;
+    let {hospital_id} = req.params ;
     try {
-        let hospital = await db.Hospital.findOne({where : {username: username,}});
+        let hospital = await db.Hospital.findOne({where : {id: hospital_id,}});
         if(hospital === null){
             return responseModule.failResponse(res, {
                 success: false,
@@ -76,7 +77,7 @@ let updateProfile = async (req, res, next) => {
                     description : description,
                     owner : owner
                 },
-                {where: {username : username}}
+                {where: {id : hospital_id}}
             );
             let updated_hospital = await db.Hospital.findOne({where : {username: username,}});
 

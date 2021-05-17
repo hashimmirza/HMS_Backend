@@ -23,9 +23,6 @@ module.exports = (sequelize, DataTypes) => {
             Branch.belongsTo (models.Hospital, {
                 foreignKey: { name: 'hospital_id', allowNull: false },
             });
-            Branch.hasMany(models.Building, {
-                foreignKey: { name: 'branch_id', allowNull: false }
-            });
             // User.hasMany(models.Followers, {
             //     as: 'Follower',
             //     foreignKey: {

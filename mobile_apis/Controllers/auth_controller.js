@@ -26,7 +26,7 @@ let create = async (req, res, next) => {
 
 let admin_login = async (req, res, next) => {
     let {
-        username,
+        email,
         password,
         type
     } = req.body;
@@ -40,9 +40,11 @@ let admin_login = async (req, res, next) => {
                 message: 'Invalid email !'
             });
         }else{
-            if(admin.password === password) {
+            console.log("hahs", password)
+            console.log("sadasdas", admin.password)
 
 
+            if(admin.password === parseInt(password)) {
                 return responseModule.successResponse(res, {
                     success: true,
                     message: 'Login Successfully !',

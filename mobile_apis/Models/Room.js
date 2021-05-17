@@ -40,6 +40,9 @@ module.exports = (sequelize, DataTypes) => {
             Room.hasMany(models.Indoor_patient, {
                 foreignKey: { name: 'room_id', allowNull: false }
             });
+            Room.hasMany(models.Hospital_rooms, {
+                foreignKey: { name: 'room_id', allowNull: false }
+            });
         }
     });
     return Room ;
