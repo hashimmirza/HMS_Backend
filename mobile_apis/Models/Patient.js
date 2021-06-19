@@ -26,6 +26,9 @@ module.exports = (sequelize, DataTypes) => {
             Patient.hasMany(models.Indoor_patient, {
                 foreignKey: { name: 'patient_id', allowNull: false }
             });
+            Patient.hasMany(models.Assistant_Doc_Patient, {
+                foreignKey: { name: 'patient_id', allowNull: false }
+            });
 
         }
     });

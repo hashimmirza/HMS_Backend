@@ -50,9 +50,9 @@ module.exports = (sequelize, DataTypes) => {
             Doctor.hasMany(models.Emergency_logs, {
                 foreignKey: { name: 'doctor_id', allowNull: false }
             });
-
-
-
+            Doctor.hasMany(models.Assistant_Doc_Patient, {
+                foreignKey: { name: 'doctor_id', allowNull: false }
+            });
         }
     });
     return Doctor ;

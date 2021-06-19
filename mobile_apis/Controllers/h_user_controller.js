@@ -4,7 +4,7 @@ const responseModule = require('../../config/response');
 let getUserbyCNIC = async (req, res, next) => {
     let {
         cnic
-    } = req.body;
+    } = req.params;
     try {
         let user = await db.User.findOne({where : {cnic: cnic,}});
         if(user === null){

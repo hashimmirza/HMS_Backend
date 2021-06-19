@@ -1,13 +1,13 @@
 const db = require('../../config/sequelize').db;
 const responseModule = require('../../config/response');
 
-let getAllBuilding = async (req, res, next) => {
-    let {hospital_id} = req.params;
+let getAllFloors = async (req, res, next) => {
+    let {hospital_id, building_id} = req.params;
     try {
-        let buildings = await db.Building.findAll({where : {hospital_id: hospital_id}});
+        let floors = await db.Floor.findAll({where : {building_id: building_id}});
         return responseModule.successResponse(res, {
             success: true,
-            buildings: buildings
+            floors: floors
         });
     } catch (err) {
         return responseModule.failResponse(res, {
@@ -104,7 +104,7 @@ let deleteBuilding = async (req, res, next) => {
     }
 };
 module.exports = {
-    getAllBuilding,
+    getAllFloors,
     addBuilding,
     updateBuilding,
     deleteBuilding

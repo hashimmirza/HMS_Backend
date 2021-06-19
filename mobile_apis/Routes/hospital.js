@@ -18,6 +18,7 @@ const h_emergency_controller = require('../Controllers/h_emergency_controller')
 const h_room_controller = require('../Controllers/h_room_controller')
 const h_ward_controller = require('../Controllers/h_ward_controller')
 const h_building_controller  = require('../Controllers/h_building_controller');
+const h_floor_controller = require('../Controllers/h_floor_controller');
 const requiredParameters = require('../Middlewares/requiredParameters');
 
 // /** *************************************************************************************************** **/
@@ -59,14 +60,11 @@ hospitalRoutes.post('/login'
 
 // /** ******************** Get User Details By CINC  *********************** **/
 
-hospitalRoutes.get('/:hospital_id/user/by_cnic'
+hospitalRoutes.get('/:hospital_id/user/by_cnic/:cnic'
     ,helper_controller.verify_hospital_token
     ,helper_controller.validate_cnic
-    ,requiredParameters(['cnic'])
-    ,h_user_controller.getUserbyCNIC);
-
-
-
+    ,h_user_controller.getUserbyCNIC
+);
 
 
 
@@ -108,6 +106,31 @@ hospitalRoutes.get('/:hospital_id/patient'
     ,helper_controller.verify_hospital_token
     ,h_patient_controller.getAllPatients
 );
+
+// /** ******************** examin_by_assistant_doc Assistant doctor *********************** **/
+hospitalRoutes.post('/:hospital_id/patient/examin_by_assistant_doc'
+    ,helper_controller.verify_hospital_token
+    ,requiredParameters(['doctor_id','medical_history_id','blood_pressure','sugar_test','weight','current_medicines','tests_conducted','blood_reports','tag','sleep','eyesight', 'questions_answers'])
+    ,h_patient_controller.examinPatientAssistantDoc
+);
+
+// /** ******************** Get Patients for Doctor *********************** **/
+hospitalRoutes.get('/:hospital_id/patient/patient_for_doctor/:doctor_id'
+    ,helper_controller.verify_hospital_token
+    ,h_patient_controller.getPatientsForDoctor
+);
+
+
+// /** ******************** examin_by_doc doctor *********************** **/
+hospitalRoutes.post('/:hospital_id/patient/examin_by_doc'
+    ,helper_controller.verify_hospital_token
+    ,requiredParameters(['assistant_doc_patient_id','eprescription','recommendation','required','stay_away','start_eating','visit'])
+    ,h_patient_controller.examinPatientByDoc
+);
+
+
+
+
 
 
 // /** *************************************************************************************************** **/
@@ -262,7 +285,8 @@ hospitalRoutes.post('/:hospital_id/nurse'
         'department_id',
         'is_verified'
     ])
-    ,h_nurse_controller.addNurse);
+    ,h_nurse_controller.addNurse
+);
 
 
 
@@ -374,55 +398,62 @@ hospitalRoutes.post('/:hospital_id/ward/:ward_id'
 
 
 
-//
-// // /** *************************************************************************************************** **/
-// // /** **************************************** Building Routes ******************************************* **/
-// // /** *************************************************************************************************** **/
-//
-//
-// // /** ******************** Get All wards *********************** **/
-//
-// hospitalRoutes.get('/:hospital_id/building'
-//     ,helper_controller.verify_hospital_token
-//     ,h_ward_controller.getAllBuilding);
-//
-//
-//
-// // /** ******************** Add Ward *********************** **/
-//
-// hospitalRoutes.post('/:hospital_id/ward'
-//     ,helper_controller.verify_hospital_token
-//     ,requiredParameters([
-//         'name',
-//         'description',
-//         'floor_id',
-//     ])
-//     ,h_ward_controller.addWard);
-//
-//
-//
-// // /** ******************** Delete ward  *********************** **/
-//
-// hospitalRoutes.delete('/:hospital_id/ward/:ward_id'
-//     ,helper_controller.verify_hospital_token
-//     ,h_ward_controller.deleteWard);
-//
-// // /** ******************** Update wards  *********************** **/
-//
-// hospitalRoutes.post('/:hospital_id/ward/:ward_id'
-//     ,helper_controller.verify_hospital_token
-//     ,requiredParameters([
-//         'name',
-//         'description',
-//         'floor_id',
-//     ])
-//     ,h_ward_controller.updateWard);
-//
-//
+
+// /** *************************************************************************************************** **/
+// /** **************************************** Building Routes ******************************************* **/
+// /** *************************************************************************************************** **/
+
+
+// /** ******************** Get All wards *********************** **/
+
+hospitalRoutes.get('/:hospital_id/building'
+    ,helper_controller.verify_hospital_token
+    ,h_building_controller.getAllBuilding);
+
+
+
+// /** ******************** Add Building *********************** **/
+
+hospitalRoutes.post('/:hospital_id/building'
+    ,helper_controller.verify_hospital_token
+    ,requiredParameters([
+        'name',
+        'description'
+    ])
+    ,h_building_controller.addBuilding);
+
+
+
+// /** ******************** Delete Building  *********************** **/
+
+hospitalRoutes.delete('/:hospital_id/building/:building_id'
+    ,helper_controller.verify_hospital_token
+    ,h_building_controller.deleteBuilding);
+
+// /** ******************** Update Building  *********************** **/
+
+hospitalRoutes.post('/:hospital_id/building/:building_id'
+    ,helper_controller.verify_hospital_token
+    ,requiredParameters([
+        'name',
+        'description'
+    ])
+    ,h_building_controller.updateBuilding);
 
 
 
 
+
+// /** *************************************************************************************************** **/
+// /** **************************************** Floor Routes ******************************************* **/
+// /** *************************************************************************************************** **/
+
+
+// /** ******************** Get All floors by building id*********************** **/
+
+hospitalRoutes.get('/:hospital_id/floor/:building_id'
+    ,helper_controller.verify_hospital_token
+    ,h_floor_controller.getAllFloors);
 
 
 

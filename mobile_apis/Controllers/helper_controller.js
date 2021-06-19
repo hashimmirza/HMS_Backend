@@ -38,7 +38,10 @@ let verify_hospital_token = async (req, res, next) => {
 };
 let validate_cnic = async (req, res, next) => {
     try {
-        let {cnic} = req.body ;
+        let cnic = req.params.cnic ;
+        if (!cnic) {
+            cnic = req.body.cnic
+        }
         if(cnic.length < 13){
             return responseModule.failResponse(res, {
                 success: false,

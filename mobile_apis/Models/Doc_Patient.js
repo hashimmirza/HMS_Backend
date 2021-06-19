@@ -2,7 +2,7 @@ const Sequelize = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
 
-    let Medical_history = sequelize.define('Medical_history',{
+    let Doc_Patient = sequelize.define('Doc_Patient',{
         // attributes
         id: {
             primaryKey : true,
@@ -10,37 +10,45 @@ module.exports = (sequelize, DataTypes) => {
             autoIncrement : true,
             allowNull: false,
         },
-        disease: {
-            type: Sequelize.STRING,
+        eprescription: {
+            type: Sequelize.STRING(11050),
+            defaultValue : null
         },
-        condition: {
+        recommendation: {
             type: Sequelize.STRING,
             defaultValue : null
         },
-        checked_by: {
+        required: {
             type: Sequelize.STRING,
             defaultValue : null
         },
-        type :{
+        stay_away: {
             type: Sequelize.STRING,
             defaultValue : null
+        },
+        start_eating: {
+            type: Sequelize.STRING,
+            defaultValue : null
+        },
+        visit: {
+            type: Sequelize.STRING,
+            defaultValue : null
+        },
+        status :{
+            type : Sequelize.STRING,
+            defaultValue : null
+
         }
     },{
         timestamps : true,
         associate : models => {
-            Medical_history.belongsTo (models.Patient, {
-                foreignKey: { name: 'patient_id', allowNull: false },
+            Doc_Patient.belongsTo (models.Assistant_Doc_Patient, {
+                foreignKey: { name: 'assistant_doc_patient_id', allowNull: false },
             });
-            Medical_history.belongsTo (models.Hospital, {
+            Doc_Patient.belongsTo (models.Hospital, {
                 foreignKey: { name: 'hospital_id', allowNull: false },
-            });
-            Medical_history.belongsTo (models.Doctor, {
-                foreignKey: { name: 'doctor_id', allowNull: false },
-            });
-            Medical_history.hasMany(models.Indoor_patient, {
-                foreignKey: { name: 'history_id', allowNull: false }
             });
         }
     });
-    return Medical_history ;
+    return Doc_Patient ;
 };
