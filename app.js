@@ -29,7 +29,9 @@ app.use(morgan(function (tokens, req, res) {
     ].join(' ')
 }));
 
-app.use(cors({credentials: true , origin: ['http://localhost:3000'] }));
+app.use(cors({credentials: true , origin: ['http://localhost:3000','http://localhost:4200', 'http://39.53.64.43/',
+        'https://agitated-bassi-cb6086.netlify.app/*' , 'https://agitated-bassi-cb6086.netlify.app/' , 'https://agitated-bassi-cb6086.netlify.app', 'https://focused-allen-23339d.netlify.app'] }));
+
 
 const serveIndex = require('serve-index');
 const port = process.env.PORT ;
